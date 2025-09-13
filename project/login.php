@@ -31,9 +31,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if ($row = $result->fetch_assoc()) {
         // Verify hashed password
         if (password_verify($password, $row["password"])) {
-            // Store username in session
             $_SESSION["username"] = $row["username"];
-            header("Location: dashboard.php");
+            header("Location: menu.html");
             exit();
         } else {
             echo "Invalid password.";
