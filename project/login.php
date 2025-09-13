@@ -1,7 +1,7 @@
 <?php
 session_start();
 header("Content-Type: application/json");
-include "db.php";
+include "db.php"; // Make sure this file exists and connects to your database
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $username = $_POST["username"] ?? '';
@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $_SESSION["username"] = $username;
             echo json_encode([
                 "status" => "success",
-                "redirect" => "home.php"
+                "redirect" => "dashboard.php"
             ]);
         } else {
             echo json_encode(["status" => "error", "message" => "Incorrect password"]);
