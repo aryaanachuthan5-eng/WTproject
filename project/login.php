@@ -1,40 +1,49 @@
 <?php
 session_start();
-header("Content-Type: application/json");
-include "db.php"; // Make sure this file exists and connects to your database
 
+// DB connection
+$host = "localhost";
+$user = "root";  
+$password = "";  
+$dbname = "custom_coffee_maker";
+
+$conn = new mysqli($host, $user, $password, $dbname);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Handle login form submission
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $username = $_POST["username"] ?? '';
-    $password = $_POST["password"] ?? '';
+    $username = trim($_POST["username"] ?? "");
+    $password = trim($_POST["password"] ?? "");
 
-    if (!$username || !$password) {
-        echo json_encode(["status" => "error", "message" => "Username and password required"]);
-        exit;
+    if (empty($username) || empty($password)) {
+        die("Username and password are required.");
     }
 
-    $stmt = $conn->prepare("SELECT password FROM users WHERE username = ?");
+    // Fetch user from database
+    $sql = "SELECT id, username, password FROM users WHERE username = ?";
+    $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $username);
     $stmt->execute();
-    $stmt->store_result();
+    $result = $stmt->get_result();
 
-    if ($stmt->num_rows > 0) {
-        $stmt->bind_result($hashed_password);
-        $stmt->fetch();
-
-        if (password_verify($password, $hashed_password)) {
-            $_SESSION["username"] = $username;
-            echo json_encode([
-                "status" => "success",
-                "redirect" => "dashboard.php"
-            ]);
+    if ($row = $result->fetch_assoc()) {
+        // Verify hashed password
+        if (password_verify($password, $row["password"])) {
+            // Store username in session
+            $_SESSION["username"] = $row["username"];
+            header("Location: dashboard.php");
+            exit();
         } else {
-            echo json_encode(["status" => "error", "message" => "Incorrect password"]);
+            echo "Invalid password.";
         }
     } else {
-        echo json_encode(["status" => "error", "message" => "User not found"]);
+        echo "User not found.";
     }
 
     $stmt->close();
-    $conn->close();
 }
+
+$conn->close();
 ?>
