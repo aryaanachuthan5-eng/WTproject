@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Coffee Maker</title>
+    <link rel="stylesheet" href="css/menu-style.css">
+    <script src="js/cart.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="images/Coffee-logo.jpg" alt="Coffee Logo">
+            <span class="shop-name">Custom Coffee Maker</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="main.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contactus.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="menu-section">
+            <h2>Choose Your Coffee Base</h2>
+            <div class="menu-items">
+                <div class="menu-item" data-name="Espresso" data-price="166">
+                    <img src="images/espresso.jpg" alt="Espresso">
+                    <h3>Espresso</h3>
+                    <p>₹166</p>
+                    <button onclick="addToCart('Espresso', 166)">Add</button>
+                </div>
+                <div class="menu-item" data-name="Americano" data-price="208">
+                    <img src="images/americano.jpg" alt="Americano">
+                    <h3>Americano</h3>
+                    <p>₹208</p>
+                    <button onclick="addToCart('Americano', 208)">Add</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="menu-section">
+            <h2>Choose Your Sugar</h2>
+            <div class="menu-items">
+                <div class="menu-item" data-name="White Sugar" data-price="42">
+                    <img src="images/white-sugar.jpg" alt="White Sugar">
+                    <h3>White Sugar</h3>
+                    <p>₹42</p>
+                    <button onclick="addToCart('White Sugar', 42)">Add</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="menu-section">
+            <h2>Choose Your Milk</h2>
+            <div class="menu-items">
+                <div class="menu-item" data-name="Whole Milk" data-price="50">
+                    <img src="whole-milk.jpg" alt="Whole Milk">
+                    <h3>Whole Milk</h3>
+                    <p>₹50</p>
+                    <button onclick="addToCart('Whole Milk', 50)">Add</button>
+                </div>
+                <div class="menu-item" data-name="Almond Milk" data-price="60">
+                    <img src="almond-milk.jpg" alt="Almond Milk">
+                    <h3>Almond Milk</h3>
+                    <p>₹60</p>
+                    <button onclick="addToCart('Almond Milk', 60)">Add</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="menu-section">
+            <h2>Choose Your Toppings</h2>
+            <div class="menu-items">
+                <div class="menu-item" data-name="Whipped Cream" data-price="20">
+                    <img src="whipped-cream.jpg" alt="Whipped Cream">
+                    <h3>Whipped Cream</h3>
+                    <p>₹20</p>
+                    <button onclick="addToCart('Whipped Cream', 20)">Add</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <aside class="cart-section">
+        <h2>Your Coffee</h2>
+        <div id="cart-items"></div> <!-- Added to display items -->
+        <p id="total">Total: ₹0</p> <!-- Added total display -->
+        <button class="checkout-button" onclick="checkout()">Checkout</button>
+    </aside>
+
+    <footer>
+        <p>&copy; 2025 Custom Coffee Maker. All rights reserved.</p>
+    </footer>
+</body>
+</html>
